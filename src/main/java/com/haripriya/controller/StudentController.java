@@ -13,6 +13,10 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
+
     @GetMapping("/student/{id}")
     public Student getStudentById(@PathVariable("id") int id) {
         return this.studentService.displayStudentById(id);

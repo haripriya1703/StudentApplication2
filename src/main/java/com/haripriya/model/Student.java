@@ -9,9 +9,7 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column
     private String studentName;
-    @Column
     private int contactNumber;
 
     public Student(){}
@@ -32,6 +30,10 @@ public class Student {
     //Setters and Getters
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getStudentName() {

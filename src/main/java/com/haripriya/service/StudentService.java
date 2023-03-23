@@ -17,27 +17,27 @@ public class StudentService {
 
     public Student displayStudentById(int id) {
         return studentRepository.findById(id)
-                .orElseThrow(()->new StudentNotFoundException());
+                .orElseThrow(StudentNotFoundException::new);
     }
 
     public List<Student> displayStudents(){
-        LinkedList<Student> studentsList = new LinkedList<>();
-        studentRepository.findAll().forEach(student -> studentsList.add(student));
+        LinkedList<Student> studentsList = new LinkedList<>(studentRepository.findAll());
         if(studentsList.isEmpty())
             throw new NoStudentDetailsFoundException();
         return studentsList;
     }
 
-    public int deleteStudent(int id){
-        if(!this.studentRepository.findById(id).isPresent())
+    public void deleteStudent(int id){
+        if(this.studentRepository.findById(id).isEmpty())
             throw new StudentNotFoundException();
         this.studentRepository.deleteById(id);
-        return id;
     }
 
     public Student insertStudent(Student student)
     {
-        return studentRepository.save(student);
+        if(student!=null)
+            return studentRepository.save(student);
+        throw new StudentNotFoundException();
     }
 
     public Student updateStudent(Student student) {
